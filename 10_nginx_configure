@@ -1,0 +1,23 @@
+# in file nginx.conf
+
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+	worker_connections	768;
+}
+
+http {
+	server {
+		listen			80;
+		server_name		localhost;
+		root			/var/www/app;
+		index			index.html;
+
+		location / {
+			try_files $uri $uri/ /index.html;
+		}
+	}
+}
