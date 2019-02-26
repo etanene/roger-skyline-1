@@ -1,0 +1,7 @@
+# /etc/ssh/sshd_config
+# change port
+Port 2222 (example)
+# ssh access with publickeys 
+PubkeyAuthentication yes
+# ssh root access
+PermitRootLogin no

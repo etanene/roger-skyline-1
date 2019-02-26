@@ -1,0 +1,7 @@
+# create user
+adduser username
+
+# add user to sudo group
+usermod -aG sudo username
+option -G list of groups to add user
+option -a with option -G add groups as additional
