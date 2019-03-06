@@ -6,15 +6,23 @@ pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
 
 events {
-	worker_connections	768;
+	worker_connections		768;
 }
 
 http {
 	server {
-		listen			80;
-		server_name		localhost;
-		root			/var/www/app/frontend/build;
-		index			index.html;
+		listen				80;
+		server_name			192.168.56.2;
+		return				301 https://$server_name$uri;
+	}
+
+	server {
+		listen				443 ssl;
+		server_name			192.168.56.2;
+		root				/var/www/app/frontend/build;
+		index				index.html;
+		ssl_certificate		/etc/ssl/app.crt;
+		ssl_certificate_key	/etc/ssl/app.key;
 
 		location / {
 			try_files $uri $uri/ /index.html;
