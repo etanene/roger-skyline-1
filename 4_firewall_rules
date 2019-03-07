@@ -1,0 +1,16 @@
+#drop all packets
+sudo iptables -P INPUT DROP
+
+#accept ssh connet
+sudo iptables -A INPUT -p tcp --dport 2222 -j ACCEPT
+
+#accept icmp packets(ping)
+sudo iptables -A INPUT -p icmp -j ACCEPT
+
+#accept http, https
+sudo iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -p tcp -m tcp --dport 8080 -j ACCEPT
+sudo iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+
+#accept established connections
+sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
