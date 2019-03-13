@@ -1,0 +1,21 @@
+#in file /etc/crontab add
+@reboot		root	sh /etc/cron.d/update_script.sh
+0 4 * * 1	root	sh /etc/cron.d/update_script.sh
+
+#in file /etc/cron.d/update_script.sh
+#!/bin/bash
+
+echo "************************" >> /var/log/update_script.log
+echo "START UPDATE" >> /var/log/update_script.log
+date >> /var/log/update_script.log
+echo "************************" >> /var/log/update_script.log
+
+echo "update" >> /var/log/update_script.log
+apt-get update >> /var/log/update_script.log
+echo "\nupgrade" >> /var/log/update_script.log
+apt-get upgrade -y >> /var/log/update_script.log
+
+echo "************************" >> /var/log/update_script.log
+echo "END UPDATE" >> /var/log/update_script.log
+date >> /var/log/update_script.log
+echo "************************" >> /var/log/update_script.log
