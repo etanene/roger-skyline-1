@@ -1,0 +1,18 @@
+#in file /etc/crontab add
+0  0    * * *   root    sh /etc/cron.d/crontab_monitor.sh
+
+#in file /etc/cron.d/crontab_monitor.sh
+#!/bin/bash
+
+shasum=$(cat /etc/cron.d/crontab_shasum)
+if [ "$1" == "save" ];
+then
+shasum /etc/crontab > /etc/cron.d/crontab_shasum
+cp /etc/crontab /etc/cron.d/crontab_backup
+else
+if [ "$shasum" != "$(shasum /etc/crontab)" ];
+then
+diff=$(diff /etc/crontab /etc/cron.d/crontab_backup)
+echo "$diff" | mail -s "changes in crontab file" root
+fi
+fi
